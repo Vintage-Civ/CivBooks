@@ -1,11 +1,45 @@
 {
-	code: "itemquill",
-	texture: { base: "item/books/itemquill" },
-	creativeinventory: { "general": ["*"], "items": ["*"] },
-	maxstacksize: 128,
-	materialDensity: 20,
-	combustibleProps: {
-		burnTemperature: 400,
-		burnDuration: 2,
-	},
+    "code": "itemquill",
+    "shape": {
+        "base": "item/quill"
+    },
+    "textures": {
+        "quill": {
+            "base": "item/quill"
+        }
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "items": [
+            "*"
+        ]
+    },
+    "maxstacksize": 128,
+    "materialDensity": 20,
+    "combustibleProps": {
+        "burnTemperature": 400,
+        "burnDuration": 2
+    },
+    "fpHandTransform": {
+        "rotation": {
+            "x": 26,
+            "y": 85,
+            "z": -35
+        }
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 12,
+            "y": 2,
+            "z": 0
+        },
+        "rotation": {
+            "x": -180,
+            "y": 53,
+            "z": -18
+        },
+        "scale": 1.61
+    }
 }

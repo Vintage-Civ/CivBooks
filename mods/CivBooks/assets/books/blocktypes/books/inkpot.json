@@ -28,7 +28,15 @@
 		"general": ["*"] 
 	},
 	textures: {
-
+		"plain": {
+			"base": "game:block/glass/plain"
+		},
+		"blackink": {
+			"base": "block/liquid/blackink"
+		},
+		"lead": {
+			"base": "game:block/metal/plate/lead"
+		}
     },
 	shape: {
 		base: "block/books/inkpot"

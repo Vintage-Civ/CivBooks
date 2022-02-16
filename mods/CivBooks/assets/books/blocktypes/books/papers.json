@@ -20,7 +20,7 @@
 	{ "loadFromProperties": "abstract/horizontalorientation" } 
 	],
 	textures: {
-      "pages": { base: "block/books/pages" },
+      "pages": { base: "block/paper" },
     },
 	shapebytype: {
 		"*-north": { base: "block/books/papers", rotateY: 0 },
