@@ -1,4 +1,4 @@
-﻿namespace books.src
+﻿namespace CivBooks
 {
     internal abstract class BooksAnimationHandlerBase
     {

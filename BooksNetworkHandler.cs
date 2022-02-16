@@ -13,7 +13,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
-namespace books.src
+namespace CivBooks
 {
     class BooksNetworkHandler
     {

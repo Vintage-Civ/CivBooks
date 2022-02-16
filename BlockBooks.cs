@@ -11,16 +11,13 @@ using Vintagestory.GameContent;
 using Vintagestory.API.Util;
 
 
-namespace books.src
+namespace CivBooks
 {
-    class BlockPaper : Block
+    class BlockBooks : Block
     {
         public ICoreAPI Api;
 
         public WorldInteraction[] interactbook;
-
-        public static bool
-            isPaper = true;
 
         public static string
             IDInteract = "BooksBlockInteract",
@@ -64,9 +61,14 @@ namespace books.src
                     }
                 }
                 return new WorldInteraction[] {
-                    new WorldInteraction()
+                     new WorldInteraction()
                     {
                         ActionLangCode = ALCHelpRead,
+                        MouseButton = EnumMouseButton.Right
+                    },
+                   new WorldInteraction() {
+                        ActionLangCode = ALCHelpClose,
+                        HotKeyCode = _HotKeyClose,
                         MouseButton = EnumMouseButton.Right
                     },
                     new WorldInteraction()
@@ -87,7 +89,7 @@ namespace books.src
             if (Entity is BlockEntityBooks)
             {
                 BlockEntityBooks BEBooks = (BlockEntityBooks)Entity;
-                BEBooks.OnRightClick(byPlayer, isPaper);
+                BEBooks.OnRightClick(byPlayer, false);
                 return true;
             }
             return true;
@@ -100,7 +102,8 @@ namespace books.src
 
 
         public override void OnBlockBroken(IWorldAccessor world, BlockPos blockPos, IPlayer byPlayer, float dropQuantityMultiplier = 0)
-        {
+        {   
+                  
             BlockEntity beb = world.BlockAccessor.GetBlockEntity(blockPos) as BlockEntityBooks;
 
             if (beb is BlockEntityBooks)
@@ -112,7 +115,7 @@ namespace books.src
                     ItemStack UniqueBook = new ItemStack(api.World.BlockAccessor.GetBlock(blockPos));
                     TreeAttribute BookTree = new TreeAttribute();
                     BookTree.SetString(saveTitle, BEBooks.Title);
-                    BookTree.SetString(saveAuthor, defaultAuthor);
+                    BookTree.SetString(saveAuthor, BEBooks.Author);
                     BookTree.SetInt(savePageMax, BEBooks.PageMax);
                     BookTree.SetBool(saveIsUnique, BEBooks.Unique);
                     for (int i = 0; i < BEBooks.PageMax; i++)
@@ -144,7 +147,7 @@ namespace books.src
                     BEBooks = (BlockEntityBooks)be;
                     BEBooks.PageMax = byItemStack.Attributes.GetInt(savePageMax, 1);
                     BEBooks.Title = byItemStack.Attributes.GetString(saveTitle, "");
-                    BEBooks.Author = byItemStack.Attributes.GetString(saveAuthor, "Unknown");
+                    BEBooks.Author = byItemStack.Attributes.GetString(saveAuthor, defaultAuthor);
                     BEBooks.Unique = byItemStack.Attributes.GetBool(saveIsUnique, false);
                     BEBooks.DeletingText();
                     BEBooks.NamingPages();
@@ -157,7 +160,6 @@ namespace books.src
                 }
             }
         }
-
 
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
@@ -180,7 +182,7 @@ namespace books.src
                         temp = "",
                         title = inSlot.Itemstack.Attributes.GetString(saveTitle);
                     dsc.Replace("Wood", "Paper");
-                    temp = string.Concat(descr, title, "\n");
+                    temp = string.Concat(descr, title,"\n");
                     dsc.Insert(0, temp);
                     len = temp.Length;
                     if (inSlot.Itemstack.Attributes.HasAttribute(saveAuthor))
@@ -192,7 +194,6 @@ namespace books.src
             }
         }
 
-
         public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos)
         {
             // renaming unique books, so title is shown for easier handling
@@ -200,10 +201,19 @@ namespace books.src
             if (beb is BlockEntityBooks)
             {
                 BlockEntityBooks BEBooks = (BlockEntityBooks)beb;
-                if (BEBooks.Title == "")
+                if (BEBooks.Title == "" || BEBooks.Author == "")
+                {
                     return base.GetPlacedBlockName(world, pos);
+                }
                 else
-                    return BEBooks.Title;
+                {
+                    string 
+                        shownInfo = "",
+                        sTitle = BEBooks.Title,
+                        sAuthor = BEBooks.Author;
+                    shownInfo = string.Concat(BEBooks.Title," written by ", BEBooks.Author);
+                    return shownInfo;
+                }
             }
             return base.GetPlacedBlockName(world, pos);
         }

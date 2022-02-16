@@ -3,13 +3,14 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Common;
+using System;
 
 // TODO: nicer background!
 // TODO: onRead send TreeAttributes of arText only (decrease networking)
 // Feat1: Help-Tab for book, shows more info on format, features etc.
 // Feat2: Add waypoint sharing support?
 
-namespace books.src
+namespace CivBooks
 {
     class BooksGui : GuiDialogGeneric
     {
@@ -84,7 +85,7 @@ namespace books.src
 
         BlockPos BEPos;
 
-        public Action<string> OnTextChanged;
+        public Action<string> OnTextChanged = null;
         public Action OnCloseCancel;
 
         public bool 
@@ -300,8 +301,7 @@ namespace books.src
                     .AddSmallButton(Lang.Get(_bPrevPage), OnButtonPrevPage, PrevPageButtonBounds)
                     .AddDynamicText(
                         CurrentPageNumbering,
-                        CairoFont.TextInput().WithFontSize(PageNumberingFont),
-                        EnumTextOrientation.Center,
+                        CairoFont.TextInput().WithFontSize(PageNumberingFont).WithOrientation(EnumTextOrientation.Center),
                         PageNumberingAreaBounds,
                         IDPageArea)
                 .EndChildElements()
@@ -560,8 +560,7 @@ namespace books.src
                     .AddSmallButton(Lang.Get(_bPrevPage), OnButtonPrevPage, PrevPageButtonBounds)
                     .AddDynamicText(
                         CurrentPageNumbering,
-                        CairoFont.TextInput().WithFontSize(PageNumberingFont),
-                        EnumTextOrientation.Center,
+                        CairoFont.TextInput().WithFontSize(PageNumberingFont).WithOrientation(EnumTextOrientation.Center),
                         PageNumberingAreaBounds,
                         IDPageArea)
                 .EndChildElements()

@@ -14,7 +14,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 
-namespace books.src
+namespace CivBooks
 {
 
     public class BBooks : ModSystem

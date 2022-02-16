@@ -17,7 +17,7 @@ using Vintagestory.GameContent;
 // TODO : Networkhandler?
 // TODO : save authorID?
 
-namespace books.src
+namespace CivBooks
 {
 
     public class BlockEntityBooks : BlockEntity
@@ -183,7 +183,7 @@ namespace books.src
             }
         }
 
-        public override void OnBlockBroken()
+        public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             // unregister renderer?
             //if ((Api is ICoreClientAPI) && (!isPaper))

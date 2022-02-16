@@ -13,7 +13,7 @@ using Vintagestory.API.Common.Entities;
 
 //TODO: ALL of it /./
 
-namespace books.src
+namespace CivBooks
 {
     class BooksAnimationHandler : BooksAnimationHandlerBase
     {
@@ -86,7 +86,7 @@ namespace books.src
             }
         }
 
-        public override void Dispose() => _ = animUtilopen.Animclose();
+        public override void Dispose() => animUtilopen.Dispose();
 
         public bool HideDrawModel()
         {

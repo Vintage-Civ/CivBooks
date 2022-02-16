@@ -1,0 +1,275 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{10D2F287-59E2-4588-8AE2-F2A66051DDE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>CivBooks</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>CivBooks</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>mods\CivBooks\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>mods\CivBooks\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="assets\books\textures\block\books\black\material.png" />
+    <Content Include="assets\books\textures\block\books\black\pages.png" />
+    <Content Include="assets\books\textures\block\books\blue\material.png" />
+    <Content Include="assets\books\textures\block\books\blue\pages.png" />
+    <Content Include="assets\books\textures\block\books\book.png" />
+    <Content Include="assets\books\textures\block\books\books.png" />
+    <Content Include="assets\books\textures\block\books\booksblue.png" />
+    <Content Include="assets\books\textures\block\books\booksgreen.png" />
+    <Content Include="assets\books\textures\block\books\booksquills.png" />
+    <Content Include="assets\books\textures\block\books\booksred.png" />
+    <Content Include="assets\books\textures\block\books\b_transp.png" />
+    <Content Include="assets\books\textures\block\books\ceramic.png" />
+    <Content Include="assets\books\textures\block\books\green\material.png" />
+    <Content Include="assets\books\textures\block\books\green\pages.png" />
+    <Content Include="assets\books\textures\block\books\ink.png" />
+    <Content Include="assets\books\textures\block\books\leather\material.png" />
+    <Content Include="assets\books\textures\block\books\leather\pages.png" />
+    <Content Include="assets\books\textures\block\books\pages.png" />
+    <Content Include="assets\books\textures\block\books\red\material.png" />
+    <Content Include="assets\books\textures\block\books\red\pages.png" />
+    <Content Include="assets\books\textures\block\liquid\blackink.png" />
+    <Content Include="assets\books\textures\block\liquid\ironsulfate.png" />
+    <Content Include="assets\books\textures\block\liquid\ironsulfide.png" />
+    <Content Include="assets\books\textures\block\liquid\sulfuricacid.png" />
+    <Content Include="assets\books\textures\block\liquid\sulfurironmix.png" />
+    <Content Include="assets\books\textures\item\books\itempen.png" />
+    <Content Include="assets\books\textures\item\books\itemquill.png" />
+    <Content Include="assets\books\textures\item\books\itemquillink.png" />
+    <Content Include="assets\books\textures\item\resource\ironpowder.png" />
+    <Content Include="assets\game\textures\block\books\books.png" />
+    <Content Include="assets\game\textures\block\books\booksblue.png" />
+    <Content Include="assets\game\textures\block\books\booksgreen.png" />
+    <Content Include="assets\game\textures\block\books\booksquills.png" />
+    <Content Include="assets\game\textures\block\books\booksred.png" />
+    <Content Include="assets\game\textures\block\books\b_transp.png" />
+    <Content Include="assets\game\textures\block\books\ceramic.png" />
+    <Content Include="assets\game\textures\block\books\ink.png" />
+    <Content Include="assets\game\textures\block\books\pages.png" />
+    <Content Include="assets\game\textures\block\liquid\blackink.png" />
+    <Content Include="assets\game\textures\block\liquid\ironsulfate.png" />
+    <Content Include="assets\game\textures\block\liquid\ironsulfide.png" />
+    <Content Include="assets\game\textures\block\liquid\sulfuricacid.png" />
+    <Content Include="assets\game\textures\item\books\itempen.png" />
+    <Content Include="assets\game\textures\item\books\itemquill.png" />
+    <Content Include="assets\game\textures\item\books\itemquillink.png" />
+    <Content Include="assets\game\textures\item\resource\ironpowder.png" />
+    <Content Include="pic\books.png" />
+    <Content Include="pic\chemink.png" />
+    <Content Include="pic\editor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\books\blocktypes\books\books.json" />
+    <None Include="assets\books\blocktypes\books\bookwithinkpot.json" />
+    <None Include="assets\books\blocktypes\books\inkpot.json" />
+    <None Include="assets\books\blocktypes\books\inkwell.json" />
+    <None Include="assets\books\blocktypes\books\papers.json" />
+    <None Include="assets\books\config\handbook\books-quickstart.json" />
+    <None Include="assets\books\itemtypes\books\itempencil.json" />
+    <None Include="assets\books\itemtypes\books\itemquill.json" />
+    <None Include="assets\books\itemtypes\books\itemquillink.json" />
+    <None Include="assets\books\itemtypes\resource\blackink.json" />
+    <None Include="assets\books\itemtypes\resource\ironpowder.json" />
+    <None Include="assets\books\itemtypes\resource\ironsulfate.json" />
+    <None Include="assets\books\itemtypes\resource\ironsulfide.json" />
+    <None Include="assets\books\itemtypes\resource\sulfuricacid.json" />
+    <None Include="assets\books\itemtypes\resource\sulfurironmix.json" />
+    <None Include="assets\books\lang\en.json" />
+    <None Include="assets\books\recipes\barrel\fillinkwell.json" />
+    <None Include="assets\books\recipes\barrel\ink.json" />
+    <None Include="assets\books\recipes\barrel\inkmix.json" />
+    <None Include="assets\books\recipes\barrel\ironsulfate.json" />
+    <None Include="assets\books\recipes\barrel\ironsulfide.json" />
+    <None Include="assets\books\recipes\barrel\sulfuricacid.json" />
+    <None Include="assets\books\recipes\grid\book.json" />
+    <None Include="assets\books\recipes\grid\fillinkwellbucket.json" />
+    <None Include="assets\books\recipes\grid\inkwell.json" />
+    <None Include="assets\books\recipes\grid\inkwellquill.json" />
+    <None Include="assets\books\recipes\grid\ironpowder.json" />
+    <None Include="assets\books\recipes\grid\papers.json" />
+    <None Include="assets\books\recipes\grid\pencil.json" />
+    <None Include="assets\books\recipes\grid\quill.json" />
+    <None Include="assets\books\shapes\block\books\books.json" />
+    <None Include="assets\books\shapes\block\books\booksquills.json" />
+    <None Include="assets\books\shapes\block\books\bookwithinkpot.json" />
+    <None Include="assets\books\shapes\block\books\inkpot.json" />
+    <None Include="assets\books\shapes\block\books\inkwell.json" />
+    <None Include="assets\books\shapes\block\books\inv_books.json" />
+    <None Include="assets\books\shapes\block\books\inv_booksquills.json" />
+    <None Include="assets\books\shapes\block\books\inv_bookwithinkpot.json" />
+    <None Include="assets\books\shapes\block\books\inv_inkpot.json" />
+    <None Include="assets\books\shapes\block\books\inv_inkwell.json" />
+    <None Include="assets\books\shapes\block\books\inv_papers.json" />
+    <None Include="assets\books\shapes\block\books\papers.json" />
+    <None Include="assets\books\shapes\item\liquid.json" />
+    <None Include="assets\game\lang\en.json" />
+    <None Include="PreVersion\MobBooksV101.zip" />
+    <None Include="PreVersion\ModBooksV126.zip" />
+    <None Include="Releases\ModBooksV12.7z" />
+    <None Include="Releases\ModBooksV120.7z" />
+    <None Include="Releases\ModBooksV120.zip" />
+    <None Include="Releases\ModBooksV125.zip" />
+    <None Include="Releases\ModBooksV126.zip" />
+    <None Include="Releases\V100\BooksMODV100.zip" />
+    <None Include="Releases\V101\ModBooksV101.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\1.16.3 update\v17\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\Lib\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="cairo-sharp">
+      <HintPath>..\..\Lib\cairo-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\Lib\CommandLine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="csogg">
+      <HintPath>..\..\Lib\csogg.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="csvorbis">
+      <HintPath>..\..\Lib\csvorbis.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DnsClient">
+      <HintPath>..\..\Lib\DnsClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Jint">
+      <HintPath>..\..\Lib\Jint.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Nat">
+      <HintPath>..\..\Lib\Mono.Nat.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>..\..\Lib\Mono.Posix.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Open.Nat">
+      <HintPath>..\..\Lib\Open.Nat.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\Lib\OpenTK.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\Lib\protobuf-net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpAvi">
+      <HintPath>..\..\Lib\SharpAvi.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Core.Presentation" />
+    <Reference Include="System.Activities.DurableInstancing" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.AddIn" />
+    <Reference Include="System.AddIn.Contract" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\System.Buffers.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\Lib\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="Tavis.JsonPatch">
+      <HintPath>..\..\Lib\Tavis.JsonPatch.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VintagestoryAPI">
+      <HintPath>..\..\VintagestoryAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>..\..\VintagestoryLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSEssentials">
+      <HintPath>..\..\Mods\VSEssentials.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>..\..\Mods\VSSurvivalMod.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>..\..\Lib\websocket-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="xplatforminterface">
+      <HintPath>..\..\Lib\xplatforminterface.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BEBooks.cs" />
+    <Compile Include="BlockBooks.cs" />
+    <Compile Include="BlockPaper.cs" />
+    <Compile Include="BooksAnimationHandler.cs" />
+    <Compile Include="BooksAnimationHandlerBase.cs" />
+    <Compile Include="BooksGui.cs" />
+    <Compile Include="BooksNetworkHandler.cs" />
+    <Compile Include="BooksSystem.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
