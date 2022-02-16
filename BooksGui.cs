@@ -1,9 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Common;
-using System;
 
 // TODO: nicer background!
 // TODO: onRead send TreeAttributes of arText only (decrease networking)
@@ -12,15 +11,16 @@ using System;
 
 namespace CivBooks
 {
-    class BooksGui : GuiDialogGeneric
+    internal class BooksGui : GuiDialogGeneric
     {
-        ICoreClientAPI Capi;
+        private ICoreClientAPI Capi;
 
-        private int 
+        private int
             PageCurrent = 0;
 
-        public int 
-            PageMax { get; private set; }
+        public int
+            PageMax
+        { get; private set; }
 
         private static int
             MaxTitleWidth = 240,
@@ -56,7 +56,6 @@ namespace CivBooks
             _bClose = "",
             _bHelp = "";
 
-
         private static string
             // Language en.json references:
             LangTextDef = "books:editor-text-default",
@@ -83,12 +82,12 @@ namespace CivBooks
 
         private string[] Text = new string[30];
 
-        BlockPos BEPos;
+        private BlockPos BEPos;
 
         public Action<string> OnTextChanged = null;
         public Action OnCloseCancel;
 
-        public bool 
+        public bool
             didSave,
             isPaper = false,
             Unique = false;
@@ -103,6 +102,7 @@ namespace CivBooks
             Title = booktitle;
             Unique = unique;
         }
+
         public BooksGui(bool isPaper, bool unique, string booktitle, string[] text, int pagemax, ICoreClientAPI capi, string dialogTitel) : base(dialogTitel, capi)
         {
             Capi = capi;
@@ -154,7 +154,8 @@ namespace CivBooks
                     .GetTextArea(IDTextArea)
                      .SetValue(Text[PageCurrent]);
             }
-            else {
+            else
+            {
                 // to keep richtext functionality
                 ReadGui(this.BEPos, this.Capi);
             }
@@ -188,7 +189,8 @@ namespace CivBooks
                    .GetDynamicText(IDPageArea)
                     .SetNewText(CurrentPageNumbering, false, true, false);
             }
-            else {
+            else
+            {
                 Composers[CompNameRead]
                     .GetDynamicText(IDPageArea)
                         .SetNewText(CurrentPageNumbering, false, true, false);
@@ -307,7 +309,6 @@ namespace CivBooks
                 .EndChildElements()
                 .Compose();
 
-
             Composers[CompNameEdit]
                 .GetTextArea(IDTextArea)
                     .SetMaxLines(MaxLines);
@@ -347,7 +348,6 @@ namespace CivBooks
                 PageCurrent += 1;
                 UpdatingText();
                 UpdatingCurrentPageNumbering();
-
             }
             return true;
         }
@@ -360,14 +360,12 @@ namespace CivBooks
                 PageCurrent -= 1;
                 UpdatingText();
                 UpdatingCurrentPageNumbering();
-
             }
             return true;
         }
 
         private bool OnButtonSub()
         {
-
             if (PageMax > 1)
             {
                 Text[PageMax] = "";
@@ -386,16 +384,16 @@ namespace CivBooks
 
         private bool OnButtonAdd()
         {
-            if(isPaper)
+            if (isPaper)
             {
                 if (PageMax == 2)
-                    return true; 
+                    return true;
             }
 
             if (PageMax < PageLimit)
             {
                 PageMax += 1;
-                Text[PageMax-1] = "";
+                Text[PageMax - 1] = "";
                 UpdatingCurrentPageNumbering();
             }
 
@@ -412,7 +410,8 @@ namespace CivBooks
                     .GetTextArea(IDTextArea)
                     .TabIndex);
             }
-            else {
+            else
+            {
                 Composers[CompNameRead]
                     .FocusElement(Composers[CompNameRead]
                     .GetRichtext(IDRichtextArea)
@@ -453,7 +452,7 @@ namespace CivBooks
             {
                 SavingInputTemporary();
                 Unique = true;
-  
+
                 byte[] data;
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -474,7 +473,7 @@ namespace CivBooks
 
                 didSave = true;
                 TryClose();
-                Dispose(); 
+                Dispose();
             }
             return true;
         }

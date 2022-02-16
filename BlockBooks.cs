@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
-using Vintagestory.API.Server;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
-
 
 namespace CivBooks
 {
-    class BlockBooks : Block
+    internal class BlockBooks : Block
     {
         public ICoreAPI Api;
 
@@ -100,10 +96,8 @@ namespace CivBooks
             return interactbook.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
         }
 
-
         public override void OnBlockBroken(IWorldAccessor world, BlockPos blockPos, IPlayer byPlayer, float dropQuantityMultiplier = 0)
-        {   
-                  
+        {
             BlockEntity beb = world.BlockAccessor.GetBlockEntity(blockPos) as BlockEntityBooks;
 
             if (beb is BlockEntityBooks)
@@ -132,7 +126,6 @@ namespace CivBooks
             }
             base.OnBlockBroken(world, blockPos, byPlayer);
         }
-
 
         public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ItemStack byItemStack)
         {
@@ -163,8 +156,8 @@ namespace CivBooks
 
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
-            // TODO: displaying author? 
-            // Structure of dsc = 
+            // TODO: displaying author?
+            // Structure of dsc =
             // { Material: Wood
             // Id: 4822
             // Code: books: books - north
@@ -182,7 +175,7 @@ namespace CivBooks
                         temp = "",
                         title = inSlot.Itemstack.Attributes.GetString(saveTitle);
                     dsc.Replace("Wood", "Paper");
-                    temp = string.Concat(descr, title,"\n");
+                    temp = string.Concat(descr, title, "\n");
                     dsc.Insert(0, temp);
                     len = temp.Length;
                     if (inSlot.Itemstack.Attributes.HasAttribute(saveAuthor))
@@ -207,11 +200,11 @@ namespace CivBooks
                 }
                 else
                 {
-                    string 
+                    string
                         shownInfo = "",
                         sTitle = BEBooks.Title,
                         sAuthor = BEBooks.Author;
-                    shownInfo = string.Concat(BEBooks.Title," written by ", BEBooks.Author);
+                    shownInfo = string.Concat(BEBooks.Title, " written by ", BEBooks.Author);
                     return shownInfo;
                 }
             }

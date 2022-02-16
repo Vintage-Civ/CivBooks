@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
-using Vintagestory.API.Server;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
-
 
 namespace CivBooks
 {
-    class BlockPaper : Block
+    internal class BlockPaper : Block
     {
         public ICoreAPI Api;
 
@@ -98,7 +94,6 @@ namespace CivBooks
             return interactbook.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
         }
 
-
         public override void OnBlockBroken(IWorldAccessor world, BlockPos blockPos, IPlayer byPlayer, float dropQuantityMultiplier = 0)
         {
             BlockEntity beb = world.BlockAccessor.GetBlockEntity(blockPos) as BlockEntityBooks;
@@ -130,7 +125,6 @@ namespace CivBooks
             base.OnBlockBroken(world, blockPos, byPlayer);
         }
 
-
         public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ItemStack byItemStack)
         {
             base.OnBlockPlaced(world, blockPos, byItemStack);
@@ -158,11 +152,10 @@ namespace CivBooks
             }
         }
 
-
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
-            // TODO: displaying author? 
-            // Structure of dsc = 
+            // TODO: displaying author?
+            // Structure of dsc =
             // { Material: Wood
             // Id: 4822
             // Code: books: books - north
@@ -191,7 +184,6 @@ namespace CivBooks
                 }
             }
         }
-
 
         public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos)
         {

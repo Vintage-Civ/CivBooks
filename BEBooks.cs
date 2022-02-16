@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vintagestory.API;
 using Vintagestory.API.Client;
-using Vintagestory.API.Server;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
+using Vintagestory.API.Server;
 
 // TODO : Privileges?
 // TODO : Networkhandler?
@@ -19,7 +12,6 @@ using Vintagestory.GameContent;
 
 namespace CivBooks
 {
-
     public class BlockEntityBooks : BlockEntity
     {
         public ICoreClientAPI Capi;
@@ -28,8 +20,10 @@ namespace CivBooks
         public int
             // current page/pagemax <= pagelimit
             PageMax = 1;
+
         private static int
             PageLimit = 20;
+
         private static string
             // ID/dialog keys:
             IDDialogBookEditor = "bookeditor",
@@ -38,24 +32,28 @@ namespace CivBooks
             flag_R = "R",
             flag_W = "W",
             NetworkName = "BlockEntityTextInput";
+
         public string[]
             arText = new string[PageLimit],
             arPageNames = new string[PageLimit];
+
         public string
             Title = "",
             Author = "";
 
-        public bool 
+        public bool
             isPaper = false,
             Unique;
 
         public ItemStack
             tempStack = null,
             tempStack2 = null;
+
         //private BooksAnimationHandler BookAnim;
 
-        public BlockEntityBooks() : base() { }
-
+        public BlockEntityBooks() : base()
+        {
+        }
 
         public BlockEntityBooks(BlockPos blockPos, bool isPaper) : base()
         {
@@ -63,7 +61,7 @@ namespace CivBooks
             DeletingText();
             this.Pos = blockPos;
         }
-        
+
         public BlockEntityBooks(bool isUnique, bool isPaper, int pageMax, string title, string author, string[] text, BlockPos blockPos) : base()
         {
             this.isPaper = isPaper;
@@ -81,6 +79,7 @@ namespace CivBooks
             DeletingText();
             this.Sapi = sapi;
         }
+
         public BlockEntityBooks(ICoreClientAPI capi) : base()
         {
             DeletingText();
@@ -97,12 +96,12 @@ namespace CivBooks
             for (int i = 1; i <= PageLimit; i++)
             {
                 temp_numbering = i.ToString();
-                arPageNames[i-1] = string.Concat(
+                arPageNames[i - 1] = string.Concat(
                     updatedPageName,
                     temp_numbering
                     );
             }
-       }
+        }
 
         public void DeletingText()
         {
@@ -110,7 +109,6 @@ namespace CivBooks
             {
                 this.arText[i] = "";
             }
-          
         }
 
         /*
@@ -122,13 +120,14 @@ namespace CivBooks
                 return false;
         }
         */
+
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
             this.Api = api;
 
-           // if ((api is ICoreClientAPI)&& (!isPaper))
-           //     BookAnim = new BooksAnimationHandler(api as ICoreClientAPI, this);
+            // if ((api is ICoreClientAPI)&& (!isPaper))
+            //     BookAnim = new BooksAnimationHandler(api as ICoreClientAPI, this);
 
             if (arPageNames == null)
             {
@@ -149,7 +148,7 @@ namespace CivBooks
             Title = tree.GetString("title", "");
             Author = tree.GetString("author", "");
             if (arPageNames[0] == null)
-            { 
+            {
                 NamingPages();
             }
             if (!Unique)
@@ -189,9 +188,8 @@ namespace CivBooks
             //if ((Api is ICoreClientAPI) && (!isPaper))
             //    BookAnim.Dispose();
             // keep data
-            // base.OnBlockBroken(); 
+            // base.OnBlockBroken();
         }
-        
 
         public void OnRightClick(IPlayer byPlayer, bool isPaper)
         {
@@ -199,10 +197,10 @@ namespace CivBooks
 
             ItemSlot hotbarSlot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-            if(isPaper)
+            if (isPaper)
                 this.isPaper = isPaper;
 
-            if (arText[0]== null)
+            if (arText[0] == null)
                 DeletingText();
 
             //if (byPlayer?.Entity?.Controls?.Sprint == true)
@@ -303,7 +301,7 @@ namespace CivBooks
             {
                 player.InventoryManager.TryGiveItemstack(tempStack2);
             }
-            else if(tempStack != null)
+            else if (tempStack != null)
             {
                 if (Api.World.BlockAccessor.GetBlock(new AssetLocation("books:inkwell-empty")) != null)
                 {
@@ -352,7 +350,6 @@ namespace CivBooks
 
                     IClientWorldAccessor clientWorld = (IClientWorldAccessor)Api.World;
 
-
                     if (controlRW.Equals(flag_W))
                     {
                         BooksGui BGuiWrite = new BooksGui(isPaper, unique, Title, arText, PageMax, Api as ICoreClientAPI, IDDialogBookEditor);
@@ -370,7 +367,8 @@ namespace CivBooks
                         };
                         BGuiWrite?.TryOpen();
                     }
-                    else {
+                    else
+                    {
                         BooksGui BGuiRead = new BooksGui(isPaper, unique, Title, arText, PageMax, Api as ICoreClientAPI, IDDialogBookReader);
                         BGuiRead.ReadGui(Pos, Api as ICoreClientAPI);
                         BGuiRead.OnCloseCancel = () =>
@@ -394,6 +392,7 @@ namespace CivBooks
             }
         }
     }
+
     public enum EnumBookPacketId
     {
         OpenDialog = 5301,

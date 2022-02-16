@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Vintagestory.API.Client;
-using Vintagestory.API.Config;
-using Vintagestory.API.MathTools;
+﻿using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
-using Vintagestory.API.Common.Entities;
 
 //TODO: ALL of it /./
 
 namespace CivBooks
 {
-    class BooksAnimationHandler : BooksAnimationHandlerBase
+    internal class BooksAnimationHandler : BooksAnimationHandlerBase
     {
         public ICoreClientAPI Capi;
 
@@ -30,7 +21,6 @@ namespace CivBooks
             AnimOpenCode = "bookopening",
             AnimClose = "bookclose",
             AnimCloseCode = "bookclosing";
-
 
         private AnimationMetaData AnimMetaDataOpen = new AnimationMetaData() { Animation = AnimOpen, Code = AnimOpenCode, AnimationSpeed = AnimOpenSpeed };
         private AnimationMetaData AnimMetaDataClose = new AnimationMetaData() { Animation = AnimClose, Code = AnimCloseCode, AnimationSpeed = AnimCloseSpeed };
@@ -56,7 +46,6 @@ namespace CivBooks
             animUtilopen.StartAnimation(AnimMetaDataOpen);
         }
 
-
         public void Open(ICoreAPI api)
         {
             if (api.World is ICoreClientAPI)
@@ -72,7 +61,6 @@ namespace CivBooks
         {
             animUtilopen.StopAnimation(AnimatorOpen);
             //animUtilclose.InitializeAnimator(AnimatorOpen);
-
         }
 
         public void Close(ICoreAPI api)
@@ -82,7 +70,6 @@ namespace CivBooks
                 animUtilopen.StopAnimation(AnimatorOpen);
                 animUtilopen.activeAnimationsByAnimCode.Clear();
                 animUtilopen.InitializeAnimator(AnimatorOpen);
-
             }
         }
 
@@ -90,7 +77,6 @@ namespace CivBooks
 
         public bool HideDrawModel()
         {
-            
             if (animUtilclose.activeAnimationsByAnimCode.Count > 0)
             {
                 return true;
@@ -102,7 +88,5 @@ namespace CivBooks
             }
             return false;
         }
-
-
     }
 }

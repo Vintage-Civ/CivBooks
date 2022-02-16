@@ -1,8 +1,9 @@
 {
   "type": "code",
   "modid": "books",
-  "name": "Books, Paper and Ink",
+  "name": "CivBooks",
   "authors": [ "Christoph Clouser", "Novocain", "SouthernBloc" ],
   "description": "Adds ink, paper, books, pen, quill and more to write with!",
-  "version": "1.2.6"
+  "IconPath": "books/textures/icon.png",
+  "version": "1.3.0"
 }
