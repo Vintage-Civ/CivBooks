@@ -1,30 +1,45 @@
 ﻿using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
 namespace CivBooks
 {
     internal class BooksNetworkHandler
     {
-        private ICoreClientAPI Capi;
-        private ICoreServerAPI Sapi;
-
-        public BooksNetworkHandler(ICoreClientAPI capi)
+        internal class BooksPacket
         {
-            this.Capi = capi;
+
         }
 
-        public BooksNetworkHandler(ICoreServerAPI sapi)
+        private ICoreClientAPI capi;
+        private ICoreServerAPI sapi;
+
+        private IServerNetworkChannel sChannel;
+        private IClientNetworkChannel cChannel;
+        
+        public BooksNetworkHandler(ICoreAPI api)
         {
-            this.Sapi = sapi;
+            capi = api as ICoreClientAPI;
+            sapi = api as ICoreServerAPI;
+
+            cChannel = capi?.Network.RegisterChannel("civbooksNet");
+            sChannel = sapi?.Network.RegisterChannel("civbooksNet");
+            
+            cChannel?.RegisterMessageType<BooksPacket>();
+            sChannel?.RegisterMessageType<BooksPacket>();
+
+            cChannel?.SetMessageHandler<BooksPacket>(OnReceiveServerPacket);
+            sChannel?.SetMessageHandler<BooksPacket>(OnReceiveClientPacket);
         }
 
-        public void SendToClient(ICoreClientAPI capi)
+        public void OnReceiveServerPacket(BooksPacket packet)
         {
-            Capi = capi;
+
         }
 
-        public void OnReceive()
+        public void OnReceiveClientPacket(IServerPlayer fromPlayer, BooksPacket packet)
         {
+
         }
     }
 }

@@ -13,12 +13,12 @@ namespace CivBooks
     public class BBooks : ModSystem
     {
         // Client:
-        public ICoreClientAPI Capi { get; private set; }
+        public ICoreClientAPI capi { get; private set; }
 
         public IClientNetworkChannel CChannel { get; private set; }
 
         // Server:
-        public ICoreServerAPI Sapi { get; private set; }
+        public ICoreServerAPI sapi { get; private set; }
 
         public IServerNetworkChannel SChannel { get; private set; }
 
@@ -29,8 +29,6 @@ namespace CivBooks
 
         public override void Start(ICoreAPI api)
         {
-            base.Start(api);
-
             api.RegisterBlockClass("BlockBooks", typeof(BlockBooks));
             api.RegisterBlockEntityClass("BlockEntityBooks", typeof(BlockEntityBooks));
             api.RegisterBlockClass("BlockPaper", typeof(BlockPaper));
@@ -38,16 +36,12 @@ namespace CivBooks
 
         public override void StartClientSide(ICoreClientAPI capi)
         {
-            base.StartClientSide(capi);
-
-            ICoreClientAPI Capi = capi;
+            this.capi = capi;
         }
 
         public override void StartServerSide(ICoreServerAPI sapi)
         {
-            base.StartServerSide(sapi);
-
-            ICoreServerAPI Sapi = sapi;
+            this.sapi = sapi;
         }
     }
 }
