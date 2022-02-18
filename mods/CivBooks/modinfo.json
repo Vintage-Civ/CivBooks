@@ -1,6 +1,6 @@
 {
   "type": "code",
-  "modid": "books",
+  "modid": "civbooks",
   "name": "CivBooks",
   "authors": [ "Christoph Clouser", "Novocain", "SouthernBloc" ],
   "description": "Adds ink, paper, books, pen, quill and more to write with!",
