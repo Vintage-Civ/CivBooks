@@ -1,0 +1,119 @@
+{
+    "code": "wetpaper",
+    "shape": {
+        "base": "block/books/inv_papers"
+    },
+    "textures": {
+        "all": {
+            "base": "block/paperwet"
+        }
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "items": [
+            "*"
+        ]
+    },
+    "maxstacksize": 64,
+    "materialDensity": 500,
+    "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": -1,
+            "z": 0
+        },
+        "rotation": {
+            "x": 116,
+            "y": -36,
+            "z": -13
+        },
+        "origin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1.79
+    },
+    "fpHandTransform": {
+        "translation": {
+            "x": 0.4,
+            "y": 0.4,
+            "z": 1
+        },
+        "rotation": {
+            "x": 93,
+            "y": 145,
+            "z": -68
+        },
+        "origin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 2.5
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.1,
+            "y": -0.2,
+            "z": 0
+        },
+        "rotation": {
+            "x": 36,
+            "y": -112,
+            "z": 41
+        },
+        "origin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 0.67
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": -180,
+            "y": -149,
+            "z": -180
+        },
+        "origin": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 2.94
+    },
+    "attributes": {
+        "onDisplayTransform": {
+            "origin": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "isPage": "true"
+        }
+    },
+    "transitionableProps": [
+        {
+            "type": "dry",
+            "freshHours": {
+                "avg": 0
+            },
+            "transitionHours": {
+                "avg": 24
+            },
+            "transitionedStack": {
+                "type": "block",
+                "code": "books:papers-north"
+            },
+            "transitionRatio": 1
+        }
+    ]
+}

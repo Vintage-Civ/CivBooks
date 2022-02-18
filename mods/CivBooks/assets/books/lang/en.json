@@ -8,8 +8,8 @@
 "books:block-bookswithinkpot-*" : "Book with Inkwell",
 "blockdesc-bookswithinkpot-*":"A book with an inkwell and quill so that anybody can write into it anytime without having to bring their own ink and quill. If you break it, you will only get the book back!",
 
-"books:item-blackink":"Black ink",
-"itemdesc-blackink":"An iron based ink to write onto paper and into books. It is made from iron sulfate. You need something to carry it with, like an inkwell and something to apply it to the paper, like a quill. It is very water resistant, but will damage the paper over a few hundred years!",
+"books:item-blackinkportion":"Black ink",
+"itemdesc-blackinkportion":"An iron based ink to write onto paper and into books. It is made from iron sulfate. You need something to carry it with, like an inkwell and something to apply it to the paper, like a quill. It is very water resistant, but will damage the paper over a few hundred years!",
 "books:item-ironpowder":"Iron powder",
 "itemdesc-ironpowder":"Iron powder combined with sufuric acid in a barrel will give you iron sulfate which is needed to produce black ink. ",
 "books:item-sulfuricacidportion":"Sulfuric acid",
@@ -27,7 +27,7 @@
 "books:item-itemquillink":"Inkwell with Quill",
 "itemdesc-itemquillink":"With a quill and a full inkwell you can write texts on paper and in books!",
 
-"books:incontainer-item-blackink":"Black ink",
+"books:incontainer-item-blackinkportion":"Black ink",
 "books:incontainer-item-ironsulfateportion":"Iron sulfate",
 "books:incontainer-item-sulfuricacidportion":"Sulfuric acid",
 
@@ -44,6 +44,16 @@
 "books:books-mouse-over-help-read":"Read text",
 "books:books-mouse-over-help-write":"Write text",
 "books:books-mouse-over-help-close":"Close book",
+
+"books:block-inkpot": "Inkpot",
+"books:item-sulfurironmixportion": "Sulfur Iron Mix",
+"books:item-crushedstalks-dry": "Crushed Stalks (Dry)",
+"books:item-crushedstalks-soaked": "Crushed Stalks (Soaked)",
+"books:item-stalks-papyrus-dry": "Papyrus Stalks (Dry)",
+"books:item-stalks-cattail-dry": "Cattail Stalks (Dry)",
+"books:item-stalks-papyrus-soaked": "Papyrus Stalks (Soaked)",
+"books:item-stalks-cattail-soaked": "Cattail Stalks (Soaked)",
+"books:item-wetpaper": "Wet Paper",
 
 "game:tabname-books":"Books",
     "game:books-quickstart-title":"Books: Quickstart Guide",
