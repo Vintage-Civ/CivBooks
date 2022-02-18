@@ -1,8 +1,20 @@
 {
-	code: "makeironsulfate",
-	ingredients: [
-		{ type: "item", code: "books:sulfuricacid", quantity: 1},
-		{ type: "item", code: "books:ironpowder", quantity: 1, consumeQuantity:1 }
-	],
-	output: { type: "item", code: "books:ironsulfate", stackSize: 1 }
+    "code": "makeironsulfate",
+    "ingredients": [
+        {
+            "type": "item",
+            "code": "books:sulfuricacidportion",
+            "litres": 1
+        },
+        {
+            "type": "item",
+            "code": "books:ironpowder",
+            "quantity": 1
+        }
+    ],
+    "output": {
+        "type": "item",
+        "code": "books:ironsulfateportion",
+        "litres": 1
+    }
 }

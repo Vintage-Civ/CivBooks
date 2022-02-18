@@ -37,11 +37,9 @@
 			bowlContents: null
 		}
 	},
-	
-
 	shapeByType: {
 		"*-ink": { base: "block/books/inkwell" },
-		"*": { base: "block/books/inkwell" },
+		"*-empty": { base: "block/books/inkwellempty" }
 	},
 	creativeinventory: { "general": ["*"], "decorative": ["*"] },
 	replaceable: 300,
@@ -64,8 +62,9 @@
 		}
     },
 
-	shapeinventory: {
-		base: "block/books/inv_inkwell"
+	shapeinventoryByType: {
+		"*-ink": { base: "block/books/inv_inkwell" },
+		"*-empty": { base: "block/books/inv_inkwellempty" }
 	},
 	sideopaque: {
 		all: false

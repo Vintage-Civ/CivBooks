@@ -1,5 +1,5 @@
 {
-	ingredientPattern: "Q	I",
+	ingredientPattern: "Q,I",
 	ingredients: {
 		"Q": { type: "item", code: "books:itemquill" },
 		"I": { type: "block", code: "books:inkwell-ink"}
