@@ -1,23 +1,46 @@
-{
-	"__comment": "working",
-  "ingredientPattern": "K	C",
-  "width": 1,
-  "height": 2,
-  "ingredients": {
-    "K": {
-      "type": "item",
-      "code":  "game:knife-*",
-	  isTool: true 
+[
+  {
+    "ingredientPattern": "K,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "K": {
+            "type": "item",
+            "code": "game:knife-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "game:cattailtops",
+            "quantity": 5
+        }
     },
-    "C": { 
-	"type": "item",
-	"code": "game:cattailtops",
-	quantity: 5
-	}
+    "output": {
+        "type": "block",
+        "code": "books:papers-north",
+        "quantity": 1
+    }
   },
-  "output": {
-    "type": "block",
-    "code": "books:papers-north",
-	quantity: 1
+  {
+    "ingredientPattern": "K,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "K": {
+            "type": "item",
+            "code": "game:knife-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "game:papyrustops",
+            "quantity": 5
+        }
+    },
+    "output": {
+        "type": "block",
+        "code": "books:papers-north",
+        "quantity": 1
+    }
   }
-}
+]

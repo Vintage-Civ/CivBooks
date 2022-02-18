@@ -1,5 +1,6 @@
 ﻿using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 //TODO: ALL of it /./
@@ -8,15 +9,13 @@ namespace CivBooks
 {
     internal class BooksAnimationHandler : BooksAnimationHandlerBase
     {
-        public ICoreClientAPI Capi;
+        public ICoreClientAPI capi;
 
-        private static float
-            AnimOpenSpeed = 0.8F,
-            AnimCloseSpeed = 1F;
+        private const float
+            AnimOpenSpeed = 1.6F,
+            AnimCloseSpeed = 10F;
 
-        private static string
-            AnimatorOpen = "animbooksopen",
-            AnimatorClose = "booksclose",
+        private const string
             AnimOpen = "bookopen",
             AnimOpenCode = "bookopening",
             AnimClose = "bookclose",
@@ -25,64 +24,46 @@ namespace CivBooks
         private AnimationMetaData AnimMetaDataOpen = new AnimationMetaData() { Animation = AnimOpen, Code = AnimOpenCode, AnimationSpeed = AnimOpenSpeed };
         private AnimationMetaData AnimMetaDataClose = new AnimationMetaData() { Animation = AnimClose, Code = AnimCloseCode, AnimationSpeed = AnimCloseSpeed };
 
-        private BlockEntityAnimationUtil animUtilopen, animUtilclose;
+        BlockEntityBooks beBooks;
 
-        public BooksAnimationHandler(ICoreAPI api, BlockEntityBooks BE)
+        AssetLocation openSound;
+        AssetLocation closeSound;
+
+        public BooksAnimationHandler(ICoreAPI api, BlockEntityBooks beBooks)
         {
-            if (api is ICoreClientAPI)
+            this.beBooks = beBooks;
+            if (api is ICoreClientAPI capi)
             {
-                this.Capi = (ICoreClientAPI)api;
-                animUtilopen = new BlockEntityAnimationUtil(Capi, BE);
-                animUtilclose = new BlockEntityAnimationUtil(Capi, BE);
-                animUtilopen.InitializeAnimator(AnimatorOpen);
-                animUtilclose.InitializeAnimator(AnimatorClose);
-
-                // new Vec3f(Block.Shape.rotateX, Block.Shape.rotateY, Block.Shape.rotateZ);
+                this.capi = capi;
+                float rotY = beBooks.Block.Shape.rotateY;
+                beBooks.animUtil?.InitializeAnimator("book", new Vec3f(0, rotY, 0));
+                openSound = new AssetLocation("books:sounds/effect/pageturn");
+                closeSound = new AssetLocation("books:sounds/effect/closebook");
             }
         }
 
         public void Open()
         {
-            animUtilopen.StartAnimation(AnimMetaDataOpen);
-        }
-
-        public void Open(ICoreAPI api)
-        {
-            if (api.World is ICoreClientAPI)
-            {
-                animUtilclose.InitializeAnimator(AnimatorOpen);
-                animUtilclose.StartAnimation(AnimMetaDataClose);
-                //animUtilopen.InitializeAnimator(AnimatorOpen);
-                //animUtilopen.StartAnimation(AnimMetaDataOpen);
-            }
+            capi.World.PlaySoundAt(openSound, beBooks.Pos.X, beBooks.Pos.Y, beBooks.Pos.Z);
+            beBooks.animUtil?.StopAnimation(AnimOpenCode);
+            beBooks.animUtil?.StopAnimation(AnimCloseCode);
+            beBooks.animUtil?.StartAnimation(AnimMetaDataOpen);
         }
 
         public void Close()
         {
-            animUtilopen.StopAnimation(AnimatorOpen);
-            //animUtilclose.InitializeAnimator(AnimatorOpen);
+            capi.World.PlaySoundAt(closeSound, beBooks.Pos.X, beBooks.Pos.Y, beBooks.Pos.Z);
+            beBooks.animUtil?.StopAnimation(AnimOpenCode);
+            beBooks.animUtil?.StopAnimation(AnimCloseCode);
+            beBooks.animUtil?.StartAnimation(AnimMetaDataClose);
         }
 
-        public void Close(ICoreAPI api)
+        public override void Dispose() => beBooks.animUtil?.Dispose();
+
+        public bool hideDrawModel { get => HideDrawModel(); }
+        private bool HideDrawModel()
         {
-            if (api.World is ICoreClientAPI)
-            {
-                animUtilopen.StopAnimation(AnimatorOpen);
-                animUtilopen.activeAnimationsByAnimCode.Clear();
-                animUtilopen.InitializeAnimator(AnimatorOpen);
-            }
-        }
-
-        public override void Dispose() => animUtilopen.Dispose();
-
-        public bool HideDrawModel()
-        {
-            if (animUtilclose.activeAnimationsByAnimCode.Count > 0)
-            {
-                return true;
-            }
-
-            if (animUtilopen.activeAnimationsByAnimCode.Count > 0)
+            if ((beBooks.animUtil?.activeAnimationsByAnimCode.Count ?? 0) > 0)
             {
                 return true;
             }

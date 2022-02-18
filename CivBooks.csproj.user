@@ -7,10 +7,12 @@
     <StartProgram>C:\Games\Vintagestory\Vintagestory.exe</StartProgram>
     <StartArguments>--addModPath="C:\Games\Vintagestory\Modding\CivBooks\mods" --dataPath="C:\Games\Vintagestory\ModDevData"</StartArguments>
     <StartAction>Program</StartAction>
+    <StartWorkingDirectory>C:\Games\Vintagestory\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <StartProgram>C:\Games\Vintagestory\Vintagestory.exe</StartProgram>
     <StartArguments>--addModPath="C:\Games\Vintagestory\Modding\CivBooks\mods" --dataPath="C:\Games\Vintagestory\ModDevData"</StartArguments>
     <StartAction>Program</StartAction>
+    <StartWorkingDirectory>C:\Games\Vintagestory\</StartWorkingDirectory>
   </PropertyGroup>
 </Project>

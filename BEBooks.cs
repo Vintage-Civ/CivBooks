@@ -5,6 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 
 // TODO : Privileges?
 // TODO : Networkhandler?
@@ -49,7 +50,12 @@ namespace CivBooks
             tempStack = null,
             tempStack2 = null;
 
-        //private BooksAnimationHandler BookAnim;
+        BooksAnimationHandler animHandler;
+
+        public BlockEntityAnimationUtil animUtil
+        {
+            get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
+        }
 
         public BlockEntityBooks() : base()
         {
@@ -110,24 +116,20 @@ namespace CivBooks
                 this.arText[i] = "";
             }
         }
-
-        /*
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
         {
-            if ((Api is ICoreClientAPI) && (!isPaper))
-                return BookAnim.HideDrawModel();
-            else
-                return false;
+            return animHandler?.hideDrawModel ?? false;
         }
-        */
 
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
             this.Api = api;
 
-            // if ((api is ICoreClientAPI)&& (!isPaper))
-            //     BookAnim = new BooksAnimationHandler(api as ICoreClientAPI, this);
+            if (api is ICoreClientAPI capi && !isPaper)
+            {
+                animHandler = new BooksAnimationHandler(capi, this);
+            }
 
             if (arPageNames == null)
             {
@@ -184,11 +186,8 @@ namespace CivBooks
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
-            // unregister renderer?
-            //if ((Api is ICoreClientAPI) && (!isPaper))
-            //    BookAnim.Dispose();
-            // keep data
-            // base.OnBlockBroken();
+            animHandler?.Dispose();
+            base.OnBlockBroken(byPlayer);
         }
 
         public void OnRightClick(IPlayer byPlayer, bool isPaper)
@@ -200,14 +199,7 @@ namespace CivBooks
             if (isPaper)
                 this.isPaper = isPaper;
 
-            if (arText[0] == null)
-                DeletingText();
-
-            //if (byPlayer?.Entity?.Controls?.Sprint == true)
-            //{
-            //    if ((Api is ICoreClientAPI) && (!isPaper))
-            //        BookAnim.Close(Api);
-            //}
+            if (arText[0] == null) DeletingText();
 
             if (byPlayer?.Entity?.Controls?.Sneak == true)
             {
@@ -356,8 +348,8 @@ namespace CivBooks
                         BGuiWrite.WriteGui(Pos, Api as ICoreClientAPI);
                         BGuiWrite.OnCloseCancel = () =>
                         {
-                            //if ((Api is ICoreClientAPI) && (!isPaper))
-                            //    BookAnim.Close();
+                            animHandler?.Close();
+
                             (Api as ICoreClientAPI)
                             .Network
                             .SendBlockEntityPacket(
@@ -373,8 +365,7 @@ namespace CivBooks
                         BGuiRead.ReadGui(Pos, Api as ICoreClientAPI);
                         BGuiRead.OnCloseCancel = () =>
                         {
-                            //if ((Api is ICoreClientAPI) && (!isPaper))
-                            //    BookAnim.Close();
+                            animHandler?.Close();
                             (Api as ICoreClientAPI)
                             .Network
                             .SendBlockEntityPacket(
@@ -384,10 +375,8 @@ namespace CivBooks
                         };
                         BGuiRead?.TryOpen();
                     }
-                    //if ((Api is ICoreClientAPI) && (!isPaper))
-                    //{
-                    //    BookAnim.Open(Api);
-                    //}
+
+                    animHandler?.Open();
                 }
             }
         }

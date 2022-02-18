@@ -25,7 +25,7 @@
             "name": "Unstable"
         }
     ],
-    "entityBehavior": [
+    "entityBehaviors": [
         {
             "name": "Animatable"
         }
@@ -98,10 +98,10 @@
         "burnDuration": 12
     },
     "sounds": {
-        "place": "block/planks",
-        "hit": "block/planks",
-        "break": "block/planks",
-        "walk": "walk/wood"
+        "place": "effect/closebook",
+        "hit": "effect/closebook",
+        "break": "effect/closebook",
+        "walk": "effect/closebook"
     },
     "collisionbox": {
         "x1": 0,

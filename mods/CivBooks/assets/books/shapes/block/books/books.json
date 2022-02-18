@@ -127,23 +127,23 @@
 		{
 			"name": "bookopen",
 			"code": "bookopening",
-			"quantityframes": 16,
+			"quantityframes": 30,
 			"onActivityStopped": "Rewind",
 			"onAnimationEnd": "Hold",
 			"keyframes": [
 				{
 					"frame": 0,
 					"elements": {
-						"origin": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0 },
+						"origin": {  },
 						"Pages": {  },
-						"CoverTop": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+						"CoverTop": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
 					}
 				},
 				{
-					"frame": 15,
+					"frame": 29,
 					"elements": {
-						"origin": { "offsetX": 2.5, "offsetY": 0.0, "offsetZ": 0.0 },
-						"Pages": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"origin": {  },
+						"Pages": {  },
 						"CoverTop": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 190.0 }
 					}
 				}
@@ -153,23 +153,23 @@
 		{
 			"name": "bookclose",
 			"code": "bookclosing",
-			"quantityframes": 16,
+			"quantityframes": 30,
 			"onActivityStopped": "Rewind",
 			"onAnimationEnd": "Hold",
 			"keyframes": [
 				{
 					"frame": 0,
 					"elements": {
-						"origin": { "offsetX": 2.5, "offsetY": 0.0, "offsetZ": 0.0 },
-						"Pages": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"origin": {  },
+						"Pages": {  },
 						"CoverTop": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 190.0 }
 					}
 				},
 				{
-					"frame": 15,
+					"frame": 29,
 					"elements": {
-						"origin": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0 },
-						"Pages": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"origin": {  },
+						"Pages": {  },
 						"CoverTop": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
 					}
 				}
