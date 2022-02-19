@@ -1,0 +1,20 @@
+]
+      {
+        "ingredientPattern": "RIH,LIL,LPL",
+        "width": 3,
+        'height": 3,
+        "ingredients": {
+                "R": { type: "item", code: "game:resin-*, quantity:2},
+                "I": { type: "item", code: "books:ironrod-*, quantity: 2},
+                "H": { type: "item", code: "game:hammer-*, isTool: true},
+                "L": { type: "item", code: "game:log-*, quantity:2},
+                "P": { type: "item", code: "game:ironplate-*, quantity: 1},
+              
+      },
+      "output": {
+          "type": "item",
+          "code": 'books:printingpress",
+           quantity: 1
+      }
+]
+      
