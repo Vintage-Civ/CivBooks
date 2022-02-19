@@ -1,0 +1,16 @@
+[
+      {
+        "IngredientPattern": "PPP,PSP,PPP",
+        "Width": 3,
+        "height" 3,
+        "ingredients": {
+               "P": { type: "item", code: "game:plant-*", quantity:2},
+               "S": { type: "item", code: "game:saw-*", isTool; true}
+      },
+      "output": {
+            "type": "item",
+            "code": "books:itembookshelf"
+            quantity: 1
+      }
+    }
+]
