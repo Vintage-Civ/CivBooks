@@ -2,6 +2,7 @@
 using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -106,6 +107,31 @@ namespace CivBooks
                     updatedPageName,
                     temp_numbering
                     );
+            }
+        }
+
+        public void ExportBook()
+        {
+            string booksPath = Path.Combine(GamePaths.DataPath, "books");
+            Directory.CreateDirectory(booksPath);
+            
+            booksPath = Path.Combine(booksPath, string.Format("{0} by {1}.html", Title, Author));
+
+            using (TextWriter tw = new StreamWriter(booksPath))
+            {
+                tw.WriteAsync("<p>");
+                int foundPages = 0;
+                for (int i = 0; i < PageLimit; i++)
+                {
+                    string text = arText[i];
+                    if (text == "") continue;
+                    if (foundPages > 0) tw.WriteAsync("<br>");
+                    foundPages++;
+                    tw.WriteAsync(string.Format("Page {0}:{1}", i + 1, "<br>"));
+                    tw.WriteAsync(string.Format("{0}{1}", arText[i], "<br>"));
+                    
+                }
+                tw.WriteAsync("</p>");
             }
         }
 

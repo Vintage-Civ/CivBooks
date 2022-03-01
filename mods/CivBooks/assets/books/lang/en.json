@@ -38,12 +38,14 @@
 "books:editor-save": "Save",
 "books:editor-close": "Close", 
 "books:editor-help": "Help",
+"books:editor-export": "Export",
 
 "books:editor-help-text":"",
 
 "books:books-mouse-over-help-read":"Read text",
 "books:books-mouse-over-help-write":"Write text",
 "books:books-mouse-over-help-close":"Close book",
+"books:books-mouse-over-help-export":"Export book",
 
 "books:block-inkpot": "Inkpot",
 "books:item-sulfurironmixportion": "Sulfur Iron Mix",

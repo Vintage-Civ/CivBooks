@@ -35,7 +35,7 @@
             }
         }
     },
-	"fpHandTransform": {
+    "fpHandTransform": {
         "rotation": {
             "x": 26,
             "y": 85,
@@ -44,8 +44,8 @@
     },
     "guiTransform": {
         "translation": {
-            "x": 12,
-            "y": 2,
+            "x": 30,
+            "y": -10,
             "z": 0
         },
         "rotation": {
@@ -53,7 +53,7 @@
             "y": 53,
             "z": -18
         },
-        "scale": 1.61
+        "scale": 2.62
     },
     "tpHandTransform": {
         "translation": {

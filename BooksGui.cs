@@ -22,7 +22,7 @@ namespace CivBooks
             PageMax
         { get; private set; }
 
-        private static int
+        private const int
             MaxTitleWidth = 240,
             MaxLines = 18,
             MaxWidth = 580,
@@ -54,9 +54,10 @@ namespace CivBooks
             _bCancel = "",
             _bSave = "",
             _bClose = "",
-            _bHelp = "";
+            _bHelp = "",
+            _bExport = "";
 
-        private static string
+        private const string
             // Language en.json references:
             LangTextDef = "books:editor-text-default",
             LangTitelDef = "books:editor-titel-default",
@@ -65,6 +66,7 @@ namespace CivBooks
             LangbSave = "books:editor-save",
             LangbClose = "books:editor-close",
             LangbHelp = "books:editor-help",
+            LangbExport = "books:editor-export",
             //LangHelpText = "books:editor-help-text",
             // IDs/dialog keys:
             DialogNameEditor = "bookeditor",
@@ -92,17 +94,6 @@ namespace CivBooks
             isPaper = false,
             Unique = false;
 
-        public BooksGui(bool unique, string booktitle, string[] text, int pagemax, ICoreClientAPI capi, string dialogTitel) : base(dialogTitel, capi)
-        {
-            Capi = capi;
-            GetLangEntries();
-            PageMax = pagemax;
-            DeletingText();
-            text.CopyTo(Text, 0);
-            Title = booktitle;
-            Unique = unique;
-        }
-
         public BooksGui(bool isPaper, bool unique, string booktitle, string[] text, int pagemax, ICoreClientAPI capi, string dialogTitel) : base(dialogTitel, capi)
         {
             Capi = capi;
@@ -115,17 +106,6 @@ namespace CivBooks
             Unique = unique;
         }
 
-        public BooksGui(bool unique, string booktitle, string[] text, int pagemax, BlockPos BlockEntityPosition, ICoreClientAPI capi, string dialogTitel) : base(dialogTitel, capi)
-        {
-            Capi = capi;
-            BEPos = BlockEntityPosition;
-            GetLangEntries();
-            Title = booktitle;
-            PageMax = pagemax;
-            text.CopyTo(Text, 0);
-            Unique = unique;
-        }
-
         private void GetLangEntries()
         {
             EditTitle = Lang.Get(LangTitelEditor);
@@ -133,6 +113,7 @@ namespace CivBooks
             _bSave = Lang.Get(LangbSave);
             _bClose = Lang.Get(LangbClose);
             _bHelp = Lang.Get(LangbHelp);
+            _bExport = Lang.Get(LangbExport);
         }
 
         private void DeletingText()
@@ -247,6 +228,10 @@ namespace CivBooks
                     .FixedSize(0, 0).FixedUnder(ClippingBounds, 2 * 5)
                     .WithFixedAlignmentOffset(((WindowWidth / 2) - 40), 0)
                     .WithFixedPadding(4, 2),
+                ExportButtonBounds = ElementBounds
+                    .FixedSize(0, 0).FixedUnder(ClippingBounds, 2 * 5)
+                    .WithFixedAlignmentOffset(((WindowWidth / 2) + 70), 0)
+                    .WithFixedPadding(4, 2),
                 PageNumberingAreaBounds = ElementBounds
                     .FixedSize(PageNumberingWidth, PageNumberingHeight)
                     .FixedUnder(ClippingBounds, 2 * 5)
@@ -275,6 +260,7 @@ namespace CivBooks
                 AddPageButtonBounds,
                 NextPageButtonBounds,
                 PrevPageButtonBounds,
+                ExportButtonBounds,
                 PageNumberingAreaBounds
             );
 
@@ -301,6 +287,7 @@ namespace CivBooks
                     .AddSmallButton(Lang.Get(_bAdd), OnButtonAdd, AddPageButtonBounds)
                     .AddSmallButton(Lang.Get(_bNextPage), OnButtonNextPage, NextPageButtonBounds)
                     .AddSmallButton(Lang.Get(_bPrevPage), OnButtonPrevPage, PrevPageButtonBounds)
+                    .AddSmallButton(Lang.Get(_bExport), OnButtonExport, ExportButtonBounds)
                     .AddDynamicText(
                         CurrentPageNumbering,
                         CairoFont.TextInput().WithFontSize(PageNumberingFont).WithOrientation(EnumTextOrientation.Center),
@@ -361,6 +348,12 @@ namespace CivBooks
                 UpdatingText();
                 UpdatingCurrentPageNumbering();
             }
+            return true;
+        }
+
+        private bool OnButtonExport()
+        {
+            (capi.World.BlockAccessor.GetBlockEntity(BEPos) as BlockEntityBooks)?.ExportBook();
             return true;
         }
 
@@ -519,6 +512,10 @@ namespace CivBooks
                     .FixedSize(0, 0).FixedUnder(ClippingBounds, 2 * 5)
                     .WithFixedAlignmentOffset(((WindowWidth / 2) - 40), 0)
                     .WithFixedPadding(4, 2),
+                ExportButtonBounds = ElementBounds
+                    .FixedSize(0, 0).FixedUnder(ClippingBounds, 2 * 5)
+                    .WithFixedAlignmentOffset(((WindowWidth / 2) + 70), 0)
+                    .WithFixedPadding(4, 2),
                 PageNumberingAreaBounds = ElementBounds
                     .FixedSize(PageNumberingWidth, PageNumberingHeight)
                     .FixedUnder(ClippingBounds, 2 * 5)
@@ -539,6 +536,7 @@ namespace CivBooks
                 CancelButtonBounds,
                 NextPageButtonBounds,
                 PrevPageButtonBounds,
+                ExportButtonBounds,
                 PageNumberingAreaBounds);
 
             Composers[CompNameRead] = capi.Gui
@@ -557,6 +555,7 @@ namespace CivBooks
                     .AddSmallButton(Lang.Get(_bClose), OnButtonCancel, CancelButtonBounds)
                     .AddSmallButton(Lang.Get(_bNextPage), OnButtonNextPage, NextPageButtonBounds)
                     .AddSmallButton(Lang.Get(_bPrevPage), OnButtonPrevPage, PrevPageButtonBounds)
+                    .AddSmallButton(Lang.Get(_bExport), OnButtonExport, ExportButtonBounds)
                     .AddDynamicText(
                         CurrentPageNumbering,
                         CairoFont.TextInput().WithFontSize(PageNumberingFont).WithOrientation(EnumTextOrientation.Center),
