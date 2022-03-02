@@ -6,7 +6,7 @@ using Vintagestory.API.Server;
     Description = "Adds ink, paper, books, pen, quill and more to write with!",
     Side = "Universal",
     Authors = new[] { "Christoph Clouser", "Novocain", "SouthernBloc" },
-    Version = "1.3.2")]
+    Version = "1.3.4")]
 
 namespace CivBooks
 {

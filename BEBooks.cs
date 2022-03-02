@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -117,22 +118,25 @@ namespace CivBooks
             
             booksPath = Path.Combine(booksPath, string.Format("{0} by {1}.html", Title, Author));
 
-            using (TextWriter tw = new StreamWriter(booksPath))
+            Task.Factory.StartNew(() =>
             {
-                tw.WriteAsync("<p>");
-                int foundPages = 0;
-                for (int i = 0; i < PageLimit; i++)
+                using (TextWriter tw = new StreamWriter(booksPath))
                 {
-                    string text = arText[i];
-                    if (text == "") continue;
-                    if (foundPages > 0) tw.WriteAsync("<br>");
-                    foundPages++;
-                    tw.WriteAsync(string.Format("Page {0}:{1}", i + 1, "<br>"));
-                    tw.WriteAsync(string.Format("{0}{1}", arText[i], "<br>"));
-                    
+                    tw.Write("<p>");
+                    int foundPages = 0;
+                    for (int i = 0; i < PageLimit; i++)
+                    {
+                        string text = arText[i];
+                        if (text == "") continue;
+                        if (foundPages > 0) tw.Write("<br>");
+                        foundPages++;
+                        tw.Write(string.Format("Page {0}:{1}", i + 1, "<br>"));
+                        tw.Write(string.Format("{0}{1}", arText[i], "<br>"));
+
+                    }
+                    tw.Write("</p>");
                 }
-                tw.WriteAsync("</p>");
-            }
+            });
         }
 
         public void DeletingText()
