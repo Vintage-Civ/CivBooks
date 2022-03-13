@@ -128,12 +128,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VintagestoryAPI">
-      <HintPath>..\..\VintagestoryAPI.dll</HintPath>
+      <HintPath>..\..\1.16.3\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VintagestoryLib">
-      <HintPath>..\..\VintagestoryLib.dll</HintPath>
+      <HintPath>..\..\1.16.3\VintagestoryLib.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="VSCreativeMod">
+      <HintPath>..\..\1.16.3\Mods\VSCreativeMod.dll</HintPath>
     </Reference>
     <Reference Include="VSEssentials">
       <HintPath>..\..\Mods\VSEssentials.dll</HintPath>
