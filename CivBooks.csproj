@@ -137,6 +137,7 @@
     </Reference>
     <Reference Include="VSCreativeMod">
       <HintPath>..\..\1.16.3\Mods\VSCreativeMod.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
       <HintPath>..\..\Mods\VSEssentials.dll</HintPath>
@@ -159,6 +160,8 @@
     <Compile Include="BEBooks.cs" />
     <Compile Include="BlockBooks.cs" />
     <Compile Include="BlockPaper.cs" />
+    <Compile Include="Structs\BookPage.cs" />
+    <Compile Include="Structs\BookData.cs" />
     <Compile Include="BooksAnimationHandler.cs" />
     <Compile Include="BooksAnimationHandlerBase.cs" />
     <Compile Include="BooksGui.cs" />
