@@ -12,16 +12,25 @@ namespace CivBooks
         public long pageCount;
         public long id;
         public string title;
-        public OrderedDictionary<int, BookPage> pages;
+        public Dictionary<int, BookPage> pages;
         public HashSet<string> authorIds;
 
-        internal BookData(long pageCount, long id, string title, OrderedDictionary<int, BookPage> pages, params string[] authors)
+        internal BookData(long pageCount, long id, string title, Dictionary<int, BookPage> pages, params string[] authors)
         {
             this.pageCount = pageCount;
             this.id = id;
             this.title = title;
             this.pages = pages;
             authorIds = new HashSet<string>(authors);
+        }
+
+        internal BookData(long id)
+        {
+            this.pageCount = 0;
+            this.id = id;
+            this.title = "";
+            this.pages = new Dictionary<int, BookPage>();
+            authorIds = new HashSet<string>();
         }
 
         internal static BookData FromBytes(byte[] bytes)

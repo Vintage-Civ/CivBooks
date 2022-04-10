@@ -6,40 +6,51 @@ namespace CivBooks
 {
     internal class BooksNetworkHandler
     {
-        internal class BooksPacket
-        {
-
-        }
-
         private ICoreClientAPI capi;
         private ICoreServerAPI sapi;
 
         private IServerNetworkChannel sChannel;
         private IClientNetworkChannel cChannel;
-        
+        private BooksSystem booksSystem;
+
+        private const string netName = @"civbooksNet";
+
         public BooksNetworkHandler(ICoreAPI api)
         {
             capi = api as ICoreClientAPI;
             sapi = api as ICoreServerAPI;
 
-            cChannel = capi?.Network.RegisterChannel("civbooksNet");
-            sChannel = sapi?.Network.RegisterChannel("civbooksNet");
+            cChannel = capi?.Network.RegisterChannel(netName);
+            sChannel = sapi?.Network.RegisterChannel(netName);
+
+            cChannel?.RegisterMessageType<BookData>();
+            sChannel?.RegisterMessageType<BookData>();
+
+            cChannel?.SetMessageHandler<BookData>(OnReceiveServerPacket);
+            sChannel?.SetMessageHandler<BookData>(OnReceiveClientPacket);
             
-            cChannel?.RegisterMessageType<BooksPacket>();
-            sChannel?.RegisterMessageType<BooksPacket>();
-
-            cChannel?.SetMessageHandler<BooksPacket>(OnReceiveServerPacket);
-            sChannel?.SetMessageHandler<BooksPacket>(OnReceiveClientPacket);
+            booksSystem = api.ModLoader.GetModSystem<BooksSystem>();
         }
 
-        public void OnReceiveServerPacket(BooksPacket packet)
+        public void SendBookPacket(BookData packet)
         {
-
+            cChannel?.SendPacket(packet);
         }
 
-        public void OnReceiveClientPacket(IServerPlayer fromPlayer, BooksPacket packet)
+        public void SendBookPacket(IServerPlayer toPlayer, BookData packet)
         {
+            sChannel?.SendPacket(packet, toPlayer);
+        }
 
+        public void OnReceiveServerPacket(BookData packet)
+        {
+            booksSystem.clientBooks[packet.id] = packet;
+        }
+
+        public void OnReceiveClientPacket(IServerPlayer fromPlayer, BookData packet)
+        {
+            packet = booksSystem.GetBook(packet.id);
+            SendBookPacket(fromPlayer, packet);
         }
     }
 }

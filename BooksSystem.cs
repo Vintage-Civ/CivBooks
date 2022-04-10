@@ -1,8 +1,10 @@
 ﻿using ProtoBuf;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 
 [assembly: ModInfo("CivBooks",
@@ -13,7 +15,7 @@ using Vintagestory.API.Server;
 
 namespace CivBooks
 {
-    public class BBooks : ModSystem
+    public class BooksSystem : ModSystem
     {
         const string librarySize = @"books-librarysize";
 
@@ -21,9 +23,13 @@ namespace CivBooks
 
         public ICoreServerAPI sapi { get; private set; }
 
-        public BookData GetBook(int id)
+        public Dictionary<long, BookData> clientBooks = new Dictionary<long, BookData>();
+
+        internal BooksNetworkHandler bookNet;
+
+        public BookData GetBook(long id)
         {
-            return sapi.WorldManager.SaveGame.GetData<BookData>(@"books-data" + id);
+            return sapi.WorldManager.SaveGame.GetData<BookData>(@"books-data-" + id);
         }
 
         public void SaveBook(BookData book)
@@ -49,6 +55,8 @@ namespace CivBooks
             capi = api as ICoreClientAPI;
             sapi = api as ICoreServerAPI;
 
+            bookNet = new BooksNetworkHandler(api);
+
             api.RegisterBlockClass("BlockBooks", typeof(BlockBooks));
             api.RegisterBlockEntityClass("BlockEntityBooks", typeof(BlockEntityBooks));
             api.RegisterBlockClass("BlockPaper", typeof(BlockPaper));
@@ -56,6 +64,15 @@ namespace CivBooks
 
         public override void StartServerSide(ICoreServerAPI api)
         {
+            SaveBook(new BookData(1, 0, "hoerses", new Dictionary<int, BookPage>(), "Novocain"));
+        }
+
+        public override void StartClientSide(ICoreClientAPI api)
+        {
+            api.Event.LevelFinalize += () =>
+            {
+                bookNet.SendBookPacket(new BookData(0));
+            };
         }
     }
 }
