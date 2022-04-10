@@ -61,18 +61,5 @@ namespace CivBooks
             api.RegisterBlockEntityClass("BlockEntityBooks", typeof(BlockEntityBooks));
             api.RegisterBlockClass("BlockPaper", typeof(BlockPaper));
         }
-
-        public override void StartServerSide(ICoreServerAPI api)
-        {
-            SaveBook(new BookData(1, 0, "hoerses", new Dictionary<int, BookPage>(), "Novocain"));
-        }
-
-        public override void StartClientSide(ICoreClientAPI api)
-        {
-            api.Event.LevelFinalize += () =>
-            {
-                bookNet.SendBookPacket(new BookData(0));
-            };
-        }
     }
 }
