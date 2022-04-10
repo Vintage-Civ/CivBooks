@@ -9,10 +9,6 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-// TODO : Privileges?
-// TODO : Networkhandler?
-// TODO : save authorID?
-
 namespace CivBooks
 {
     public class BlockEntityBooks : BlockEntity
@@ -20,95 +16,39 @@ namespace CivBooks
         public ICoreClientAPI Capi;
         public ICoreServerAPI Sapi;
 
-        public int
-            // current page/pagemax <= pagelimit
-            PageMax = 1;
+        public long bookId;
+        public bool original;
+        public bool isPaper;
 
-        private static int
-            PageLimit = 20;
+        public BookData Book { 
+            get 
+            {
+                if (Capi != null)
+                {
+                    booksSystem.ReqBook(bookId);
+                    return booksSystem.clientBooks[bookId];
+                }
+                else
+                {
+                    return booksSystem.GetBook(bookId);
+                }
+            }
+            set
+            {
+                if (Sapi != null)
+                {
+                    booksSystem.SaveBook(value);
+                }
+            }
+        }
 
-        private static string
-            // ID/dialog keys:
-            IDDialogBookEditor = "bookeditor",
-            IDDialogBookReader = "bookreader",
-            // control falgs for read write gui
-            flag_R = "R",
-            flag_W = "W",
-            NetworkName = "BlockEntityTextInput";
+        internal BooksAnimationHandler animHandler;
 
-        public string[]
-            arText = new string[PageLimit],
-            arPageNames = new string[PageLimit];
-
-        public string
-            Title = "",
-            Author = "";
-
-        public bool
-            isPaper = false,
-            Unique;
-
-        public ItemStack
-            tempStack = null,
-            tempStack2 = null;
-
-        BooksAnimationHandler animHandler;
+        internal BooksSystem booksSystem;
 
         public BlockEntityAnimationUtil animUtil
         {
             get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
-        }
-
-        public BlockEntityBooks() : base()
-        {
-        }
-
-        public BlockEntityBooks(BlockPos blockPos, bool isPaper) : base()
-        {
-            this.isPaper = isPaper;
-            DeletingText();
-            this.Pos = blockPos;
-        }
-
-        public BlockEntityBooks(bool isUnique, bool isPaper, int pageMax, string title, string author, string[] text, BlockPos blockPos) : base()
-        {
-            this.isPaper = isPaper;
-            this.Unique = isUnique;
-            this.Pos = blockPos;
-            this.PageMax = pageMax;
-            this.Author = author;
-            DeletingText();
-            this.arText = text;
-            this.Title = title;
-        }
-
-        public BlockEntityBooks(ICoreServerAPI sapi) : base()
-        {
-            DeletingText();
-            this.Sapi = sapi;
-        }
-
-        public BlockEntityBooks(ICoreClientAPI capi) : base()
-        {
-            DeletingText();
-            this.Capi = capi;
-        }
-
-        public void NamingPages()
-        {
-            // naming for saving in tree attributes, e.g. page1
-            string
-                updatedPageName = "page",
-                temp_numbering = "";
-
-            for (int i = 1; i <= PageLimit; i++)
-            {
-                temp_numbering = i.ToString();
-                arPageNames[i - 1] = string.Concat(
-                    updatedPageName,
-                    temp_numbering
-                    );
-            }
         }
 
         public void ExportBook()
@@ -116,7 +56,19 @@ namespace CivBooks
             string booksPath = Path.Combine(GamePaths.DataPath, "books");
             Directory.CreateDirectory(booksPath);
             
-            booksPath = Path.Combine(booksPath, string.Format("{0} by {1}.html", Title, Author));
+            var book = Book;
+
+            string authors = "";
+
+            int j = 0;
+            foreach (var author in book.authorIds)
+            {
+                string sepstr = j > 0 ? ", " : "";
+                authors += sepstr + Capi.World.PlayerByUid(author)?.PlayerName;
+                j++;
+            }
+
+            booksPath = Path.Combine(booksPath, string.Format("{0} by {1}.html", book.title, authors));
 
             Task.Factory.StartNew(() =>
             {
@@ -124,14 +76,20 @@ namespace CivBooks
                 {
                     tw.Write("<p>");
                     int foundPages = 0;
-                    for (int i = 0; i < PageLimit; i++)
+                    for (int i = 0; i < book.pages.Count; i++)
                     {
-                        string text = arText[i];
+                        string text = book.pages[i].content;
+                        string title = book.pages[i].title;
+
                         if (text == "") continue;
                         if (foundPages > 0) tw.Write("<br>");
                         foundPages++;
                         tw.Write(string.Format("Page {0}:{1}", i + 1, "<br>"));
-                        tw.Write(string.Format("{0}{1}", arText[i], "<br>"));
+                        if (title != null)
+                        {
+                            tw.Write(string.Format("{0}{1}", title, "<br>"));
+                        }
+                        tw.Write(string.Format("{0}{1}", text, "<br>"));
 
                     }
                     tw.Write("</p>");
@@ -139,13 +97,6 @@ namespace CivBooks
             });
         }
 
-        public void DeletingText()
-        {
-            for (int i = 0; i < PageLimit; i++)
-            {
-                this.arText[i] = "";
-            }
-        }
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessThreadTesselator)
         {
             return animHandler?.hideDrawModel ?? false;
@@ -156,62 +107,28 @@ namespace CivBooks
             base.Initialize(api);
             this.Api = api;
 
+            booksSystem = api.ModLoader.GetModSystem<BooksSystem>();
+
             if (api is ICoreClientAPI capi && !isPaper)
             {
                 animHandler = new BooksAnimationHandler(capi, this);
             }
-
-            if (arPageNames == null)
-            {
-                NamingPages();
-            }
-            if (!Unique)
-                DeletingText();
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
         {
             base.FromTreeAttributes(tree, worldAccessForResolve);
 
-            // TODO: rewrite to only send data on read
-            // only always load title info!
-            Unique = tree.GetBool("unique", false);
-            PageMax = tree.GetInt("PageMax", 1);
-            Title = tree.GetString("title", "");
-            Author = tree.GetString("author", "");
-            if (arPageNames[0] == null)
-            {
-                NamingPages();
-            }
-            if (!Unique)
-                DeletingText();
-            for (int i = 0; i < PageMax; i++)
-            {
-                arText[i] = tree.GetString(arPageNames[i], "");
-            }
+            bookId = tree.GetLong("book-id");
+            original = tree.GetBool("book-original");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
 
-            tree.SetBool("unique", Unique);
-            tree.SetInt("PageMax", PageMax);
-            tree.SetString("title", Title);
-            tree.SetString("author", Author);
-
-            if (arPageNames[0] == null)
-            {
-                NamingPages();
-            }
-            if (!Unique)
-                DeletingText();
-            // TODO: rewrite to only send data on read
-            // only always load title and maxpage number info!
-            for (int i = 0; i < PageMax; i++)
-            {
-                tree.SetString(arPageNames[i], arText[i]);
-            }
+            tree.SetLong("book-id", bookId);
+            tree.SetBool("book-original", original);
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
@@ -228,8 +145,6 @@ namespace CivBooks
 
             if (isPaper)
                 this.isPaper = isPaper;
-
-            if (arText[0] == null) DeletingText();
 
             if (byPlayer?.Entity?.Controls?.Sneak == true)
             {
@@ -288,7 +203,6 @@ namespace CivBooks
 
         public override void OnReceivedClientPacket(IPlayer player, int packetid, byte[] data)
         {
-            // TODO: populate BooksNetworkHandler:
             if (packetid == (int)EnumBookPacketId.SaveBook)
             {
                 using (MemoryStream ms = new MemoryStream(data))
@@ -303,7 +217,6 @@ namespace CivBooks
                     Unique = reader.ReadBoolean();
                     Author = reader.ReadString();
                 }
-                NamingPages();
 
                 // Player as author:
                 if (player.PlayerUID != "")

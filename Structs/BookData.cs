@@ -9,15 +9,13 @@ namespace CivBooks
     public struct BookData
     {
         public const int maxPages = 5000;
-        public long pageCount;
         public long id;
         public string title;
         public Dictionary<int, BookPage> pages;
         public HashSet<string> authorIds;
 
-        internal BookData(long pageCount, long id, string title, Dictionary<int, BookPage> pages, params string[] authors)
+        internal BookData(long id, string title, Dictionary<int, BookPage> pages, params string[] authors)
         {
-            this.pageCount = pageCount;
             this.id = id;
             this.title = title;
             this.pages = pages;
@@ -26,7 +24,6 @@ namespace CivBooks
 
         internal BookData(long id)
         {
-            this.pageCount = 0;
             this.id = id;
             this.title = "";
             this.pages = new Dictionary<int, BookPage>();

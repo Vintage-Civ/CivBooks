@@ -18,10 +18,6 @@ namespace CivBooks
         private int
             PageCurrent = 0;
 
-        public int
-            PageMax
-        { get; private set; }
-
         private const int
             MaxTitleWidth = 240,
             MaxLines = 18,
@@ -45,7 +41,6 @@ namespace CivBooks
             WindowHeight = 400;
 
         private string
-            Title = "",
             CurrentPageNumbering = "1/1",
             EditTitle = "",
             Author = "",
@@ -60,7 +55,7 @@ namespace CivBooks
         private const string
             // Language en.json references:
             LangTextDef = "books:editor-text-default",
-            LangTitelDef = "books:editor-titel-default",
+            LangTitleDef = "books:editor-titel-default",
             LangTitelEditor = "books:editor-titel",
             LangbCancel = "books:editor-cancel",
             LangbSave = "books:editor-save",
@@ -82,7 +77,7 @@ namespace CivBooks
             _bNextPage = ">>",
             _bPrevPage = "<<";
 
-        private string[] Text = new string[30];
+        long bookId;
 
         private BlockPos BEPos;
 
@@ -91,19 +86,32 @@ namespace CivBooks
 
         public bool
             didSave,
-            isPaper = false,
-            Unique = false;
+            isPaper = false;
 
-        public BooksGui(bool isPaper, bool unique, string booktitle, string[] text, int pagemax, ICoreClientAPI capi, string dialogTitel) : base(dialogTitel, capi)
+
+        BooksSystem booksSystem;
+
+        public BookData Book
+        {
+            get
+            {
+                BookData book;
+                if (!booksSystem.clientBooks.TryGetValue(bookId, out book))
+                {
+                    book = new BookData(bookId);
+                    booksSystem.ReqBook(bookId);
+                }
+                return book;
+            }
+        }
+
+        public BooksGui(bool isPaper, ICoreClientAPI capi, string dialogTitle) : base(dialogTitle, capi)
         {
             Capi = capi;
             GetLangEntries();
+            booksSystem = capi.ModLoader.GetModSystem<BooksSystem>();
             this.isPaper = isPaper;
-            PageMax = pagemax;
             DeletingText();
-            text.CopyTo(Text, 0);
-            Title = booktitle;
-            Unique = unique;
         }
 
         private void GetLangEntries()
@@ -118,13 +126,19 @@ namespace CivBooks
 
         private void DeletingText()
         {
-            Unique = false;
             for (int i = 0; i < PageLimit; i++)
             {
-                Text[i] = "";
+                var pg = Book.pages[i];
+                pg.content = "";
+                pg.title = "";
+                Book.pages[i] = pg;
             }
-            Text[0] = Lang.Get(LangTextDef);
-            Title = Lang.Get(LangTitelDef);
+            
+            Book.pages[0] = new BookPage()
+            {
+                content = Lang.Get(LangTextDef),
+                title = Lang.Get(LangTitleDef)
+            };
         }
 
         private void UpdatingText()
@@ -133,7 +147,7 @@ namespace CivBooks
             {
                 Composers[CompNameEdit]
                     .GetTextArea(IDTextArea)
-                     .SetValue(Text[PageCurrent]);
+                     .SetValue(Book.pages[PageCurrent].content);
             }
             else
             {
@@ -444,7 +458,6 @@ namespace CivBooks
             if (DialogTitle == DialogNameEditor)
             {
                 SavingInputTemporary();
-                Unique = true;
 
                 byte[] data;
                 using (MemoryStream ms = new MemoryStream())
@@ -456,7 +469,6 @@ namespace CivBooks
                         writer.Write(Text[i]);
                     }
                     writer.Write(Title);
-                    writer.Write(Unique);
                     writer.Write(Author);
                     data = ms.ToArray();
                 }

@@ -32,6 +32,11 @@ namespace CivBooks
             return sapi.WorldManager.SaveGame.GetData<BookData>(@"books-data-" + id);
         }
 
+        public void ReqBook(long id)
+        {
+            bookNet.SendBookPacket(new BookData(id));
+        }
+
         public void SaveBook(BookData book)
         {
             if (LibrarySize < book.id) SetLibrarySize(book.id);
