@@ -1,0 +1,21 @@
+{
+    "code": "makeblackinkR",
+    "sealHours": 0,
+    "ingredients": [
+        {
+            "type": "item",
+            "code": "books:ironsulfateportion",
+            "litres": 25
+        },
+        {
+            "type": "item",
+            "code": "game:resin",
+            "quantity": 1
+        }
+    ],
+    "output": {
+        "type": "item",
+        "code": "books:blackinkportion",
+        "litres": 25
+    }
+}

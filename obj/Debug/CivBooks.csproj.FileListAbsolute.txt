@@ -1,0 +1,8 @@
+C:\Games\Vintagestory\Modding\CivBooks\obj\Debug\CivBooks.csproj.AssemblyReference.cache
+C:\Games\Vintagestory\Modding\CivBooks\obj\Debug\CivBooks.csproj.CoreCompileInputs.cache
+C:\Games\Vintagestory\Modding\CivBooks\bin\Debug\ConsoleApplication.dll
+C:\Games\Vintagestory\Modding\CivBooks\bin\Debug\ConsoleApplication.pdb
+C:\Games\Vintagestory\Modding\CivBooks\mods\CivBooks\CivBooks.dll
+C:\Games\Vintagestory\Modding\CivBooks\mods\CivBooks\CivBooks.pdb
+C:\Games\Vintagestory\Modding\CivBooks\obj\Debug\CivBooks.dll
+C:\Games\Vintagestory\Modding\CivBooks\obj\Debug\CivBooks.pdb

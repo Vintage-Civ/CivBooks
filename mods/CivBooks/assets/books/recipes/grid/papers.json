@@ -1,0 +1,153 @@
+[
+  {
+    "ingredientPattern": "K,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "K": {
+            "type": "item",
+            "code": "game:knife-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "game:cattailtops",
+            "quantity": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:stalks-cattail-dry",
+        "quantity": 1
+    }
+  },
+  {
+    "ingredientPattern": "K,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "K": {
+            "type": "item",
+            "code": "game:knife-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "game:papyrustops",
+            "quantity": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:stalks-cattail-dry",
+        "quantity": 1
+    }
+  },
+  {
+    "ingredientPattern": "BC",
+    "width": 2,
+    "height": 1,
+    "ingredients": {
+        "B": {
+            "type": "block",
+            "code": "game:woodbucket"
+        },
+        "C": {
+            "type": "item",
+            "code": "books:crushedstalks-dry",
+            "name": "type",
+            "quantity": 1
+        }
+    },
+    "attributes": {
+        "liquidContainerProps": {
+            "requiresContent": {
+                "type": "item",
+                "code": "game:waterportion"
+            },
+            "requiresLitres": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:crushedstalks-soaked",
+        "quantity": 1
+    }
+  },
+  {
+    "ingredientPattern": "H,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "H": {
+            "type": "item",
+            "code": "game:hammer-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "books:stalks-*-soaked",
+            "name": "type",
+            "quantity": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:crushedstalks-soaked",
+        "quantity": 1
+    }
+  },
+  {
+    "ingredientPattern": "H,C",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "H": {
+            "type": "item",
+            "code": "game:hammer-*",
+            "isTool": true
+        },
+        "C": {
+            "type": "item",
+            "code": "books:crushedstalks-soaked",
+            "name": "type",
+            "quantity": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:wetpaper",
+        "quantity": 1
+    }
+  },
+  {
+    "ingredientPattern": "BC",
+    "width": 2,
+    "height": 1,
+    "ingredients": {
+        "B": {
+            "type": "block",
+            "code": "game:woodbucket"
+        },
+        "C": {
+            "type": "item",
+            "code": "books:crushedstalks-dry",
+            "quantity": 1
+        }
+    },
+    "attributes": {
+        "liquidContainerProps": {
+            "requiresContent": {
+                "type": "item",
+                "code": "game:waterportion"
+            },
+            "requiresLitres": 1
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "books:crushedstalks-soaked",
+        "quantity": 1
+    }
+  }
+]

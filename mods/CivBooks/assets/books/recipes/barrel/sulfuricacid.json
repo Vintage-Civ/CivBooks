@@ -1,0 +1,20 @@
+{
+    "code": "makesulfuricacid",
+    "ingredients": [
+        {
+            "type": "item",
+            "code": "game:powderedsulfur",
+            "quantity": 2
+        },
+        {
+            "type": "item",
+            "code": "game:waterportion",
+            "litres": 50
+        }
+    ],
+    "output": {
+        "type": "item",
+        "code": "books:sulfuricacidportion",
+        "litres": 50
+    }
+}

@@ -1,0 +1,30 @@
+[
+	{
+	  "ingredientPattern": "L_L,LPL,L_L",
+	  "width": 3,
+	  "height": 3,
+	  "ingredients": {
+		"L": { "type": "item", "code": "game:leather-*", "name": "color" },
+		"P": { "type": "block", "code": "books:papers-*", "quantity" : 10 }
+	  },
+	  "output": {
+		"type": "block",
+		"code": "books:books-leather-{color}-north",
+		"quantity": 1
+	  }
+	},
+	{
+	  "ingredientPattern": "L_L,LPL,L_L",
+	  "width": 3,
+	  "height": 3,
+	  "ingredients": {
+		"L": { "type": "item", "code": "game:cloth-*", "name": "color" },
+		"P": {"type": "block","code": "books:papers-*",	"quantity" : 10}
+	  },
+	  "output": {
+		"type": "block",
+		"code": "books:books-{color}-north",
+		"quantity": 1
+	  }
+	}
+]

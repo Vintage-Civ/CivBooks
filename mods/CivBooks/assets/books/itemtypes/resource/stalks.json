@@ -1,0 +1,104 @@
+{
+    "code": "stalks",
+    "variantGroups": [
+        {
+            "code": "type",
+            "states": [
+                "papyrus",
+                "cattail"
+            ]
+        },
+        {
+            "code": "soak",
+            "states": [
+                "dry",
+                "soaked"
+            ]
+        }
+    ],
+    "shape": {
+        "base": "item/strips"
+    },
+    "textures": {
+        "strips": {
+            "base": "item/resource/strips-{type}-{soak}"
+        }
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "items": [
+            "*"
+        ]
+    },
+    "maxstacksize": 64,
+    "materialDensity": 500,
+    "fpHandTransform": {
+        "translation": {
+            "x": 0.046875,
+            "y": -0.2,
+            "z": 0
+        },
+        "rotation": {
+            "x": 180,
+            "y": 90,
+            "z": 15
+        }
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 14,
+            "y": 13,
+            "z": 0
+        },
+        "rotation": {
+            "x": -37,
+            "y": -2,
+            "z": 0
+        },
+        "scale": 2.34
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 3,
+            "y": 1,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 2.65
+    },
+    "crushingPropsByType": {
+        "*-soaked": {
+            "crushedStack": { "type": "item", "code": "books:crushedstalks-soaked", "stacksize": 1 },
+            "hardnessTier": 1
+        }
+    },
+    "transitionablePropsByType": {
+        "*-soaked": [
+            {
+                "type": "dry",
+                "freshHours": {
+                    "avg": 0
+                },
+                "transitionHours": {
+                    "avg": 24
+                },
+                "transitionedStack": {
+                    "type": "item",
+                    "code": "books:stalks-{type}-dry"
+                },
+                "transitionRatio": 1
+            }
+        ]
+    }
+}
